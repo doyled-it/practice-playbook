@@ -12,6 +12,11 @@
   <header class="app-bar">
     <div class="brand">⛳ Practice Playbook</div>
     <div class="actions">
+      <label class="switch">
+        <input id="tmToggle" type="checkbox">
+        <span class="slider"></span>
+        <span class="label">TrackMan</span>
+      </label>
       <button id="themeBtn" aria-label="Toggle theme">🌓</button>
     </div>
   </header>
@@ -25,6 +30,11 @@
   <footer class="footer">
     <button id="prevBtn" class="pill">◀ Prev</button>
     <div id="stepIndicator" class="indicator">1/5</div>
+    <div class="session">
+      <button id="startBtn" class="pill ghost">Start</button>
+      <button id="saveBtn" class="pill ghost">Save</button>
+      <button id="exportBtn" class="pill ghost">Export</button>
+    </div>
     <button id="nextBtn" class="pill">Next ▶</button>
   </footer>
 
