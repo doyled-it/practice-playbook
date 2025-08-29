@@ -1,0 +1,287 @@
+{
+  "Simulator": [
+    {
+      "title": "Warm-Up - 0\u201310 min",
+      "items": [
+        {
+          "label": "Loosen up, tempo first (no max swings).",
+          "perClub": [
+            {
+              "club": "PW",
+              "balls": 6
+            },
+            {
+              "club": "7i",
+              "balls": 6
+            },
+            {
+              "club": "Driver",
+              "balls": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Wedges - 10\u201325 min",
+      "items": [
+        {
+          "label": "Full swings only. Track carry, launch, spin.",
+          "perClub": [
+            {
+              "club": "PW (46\u00b0)",
+              "balls": 8
+            },
+            {
+              "club": "52\u00b0",
+              "balls": 8
+            },
+            {
+              "club": "56\u00b0",
+              "balls": 8
+            },
+            {
+              "club": "60\u00b0",
+              "balls": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Mid/Long Irons - 25\u201340 min",
+      "items": [
+        {
+          "label": "Playability check: peak height + descent.",
+          "perClub": [
+            {
+              "club": "5i",
+              "balls": 8
+            },
+            {
+              "club": "4i",
+              "balls": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Driver vs 4W - 40\u201355 min",
+      "items": [
+        {
+          "label": "Alternate shots. Compare carry, spin, dispersion.",
+          "perClub": [
+            {
+              "club": "Driver",
+              "balls": 8
+            },
+            {
+              "club": "4W",
+              "balls": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Pressure Test - 55\u201360 min",
+      "items": [
+        {
+          "label": "Targets: 95, 150, 185, 230 \u2014 1 ball each (no redos).",
+          "balls": 4
+        }
+      ]
+    }
+  ],
+  "Range": [
+    {
+      "title": "Dynamic Warm-Up - 5 min",
+      "items": [
+        {
+          "label": "Mobility + quarter/half swings.",
+          "perClub": [
+            {
+              "club": "PW",
+              "balls": 12
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Block Practice - 15 min",
+      "items": [
+        {
+          "label": "Same start line. One target.",
+          "perClub": [
+            {
+              "club": "7i",
+              "balls": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Random Practice - 20 min",
+      "items": [
+        {
+          "label": "New yardage each swing (120\u2013190). Pre-shot routine.",
+          "balls": 20
+        }
+      ]
+    },
+    {
+      "title": "Wedge Ladder - 10 min",
+      "items": [
+        {
+          "label": "Full swings to known carries.",
+          "perClub": [
+            {
+              "club": "PW (46\u00b0)",
+              "balls": 6
+            },
+            {
+              "club": "52\u00b0",
+              "balls": 6
+            },
+            {
+              "club": "56\u00b0",
+              "balls": 6
+            },
+            {
+              "club": "60\u00b0",
+              "balls": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Pressure Finish - 10 min",
+      "items": [
+        {
+          "label": "Par-18: 9 approach targets, one ball each.",
+          "balls": 9
+        }
+      ]
+    }
+  ],
+  "Short Game": [
+    {
+      "title": "Chip Fundamentals - 10 min",
+      "items": [
+        {
+          "label": "Land spot practice: 3, 6, 9 paces.",
+          "balls": 24
+        }
+      ]
+    },
+    {
+      "title": "Pitch Height Control - 10 min",
+      "items": [
+        {
+          "label": "Low / Medium / High with 56\u00b0.",
+          "perClub": [
+            {
+              "club": "56\u00b0 (low)",
+              "balls": 6
+            },
+            {
+              "club": "56\u00b0 (mid)",
+              "balls": 6
+            },
+            {
+              "club": "56\u00b0 (high)",
+              "balls": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Up-and-Down Game - 20 min",
+      "items": [
+        {
+          "label": "10 random lies \u2014 one ball each. Score it.",
+          "balls": 10
+        }
+      ]
+    },
+    {
+      "title": "Lag Putting - 10 min",
+      "items": [
+        {
+          "label": "20\u201340 ft ladder drill.",
+          "balls": 20
+        }
+      ]
+    }
+  ],
+  "Short Game (Bunker)": [
+    {
+      "title": "Entry & Exit - 10 min",
+      "items": [
+        {
+          "label": "Open face, weight forward. Splash 1\u20132 in. behind.",
+          "perClub": [
+            {
+              "club": "56\u00b0/58\u00b0",
+              "balls": 12
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Distance Control - 10 min",
+      "items": [
+        {
+          "label": "Same swing; vary face + stance. Targets 10/20/30 ft.",
+          "perClub": [
+            {
+              "club": "56\u00b0/58\u00b0 (10 ft)",
+              "balls": 6
+            },
+            {
+              "club": "56\u00b0/58\u00b0 (20 ft)",
+              "balls": 6
+            },
+            {
+              "club": "56\u00b0/58\u00b0 (30 ft)",
+              "balls": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Plugged & Uphill Lies - 10 min",
+      "items": [
+        {
+          "label": "Plugged: steeper, more loft. Uphill: match shoulders.",
+          "perClub": [
+            {
+              "club": "Plugged lie",
+              "balls": 6
+            },
+            {
+              "club": "Uphill lie",
+              "balls": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Up-and-Down Game - 10 min",
+      "items": [
+        {
+          "label": "8 random bunker lies \u2014 one ball each. Sand save %.",
+          "balls": 8
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Practice Playbook</title>
+  <meta name="theme-color" content="#0b0b10" />
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-bar">
+    <div class="brand">⛳ Practice Playbook</div>
+    <div class="actions">
+      <button id="themeBtn" aria-label="Toggle theme">🌓</button>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs"></nav>
+
+  <main class="stage">
+    <div class="card-wrap" id="cardWrap"></div>
+  </main>
+
+  <footer class="footer">
+    <button id="prevBtn" class="pill">◀ Prev</button>
+    <div id="stepIndicator" class="indicator">1/5</div>
+    <button id="nextBtn" class="pill">Next ▶</button>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
