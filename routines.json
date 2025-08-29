@@ -4,7 +4,7 @@
       "title": "Warm-Up - 0\u201310 min",
       "items": [
         {
-          "label": "Loosen up, tempo first (no max swings). Hit to a center target.",
+          "label": "Tempo only. Aim center target. Finish in balance.",
           "perClub": [
             {
               "club": "PW",
@@ -18,23 +18,6 @@
               "club": "Driver",
               "balls": 6
             }
-          ],
-          "logSchema": [
-            {
-              "type": "number",
-              "id": "tempo_feel_1to10",
-              "label": "Tempo feel (1\u201310)"
-            },
-            {
-              "type": "text",
-              "id": "swing_cue",
-              "label": "Best swing cue"
-            }
-          ],
-          "trackman": [
-            "Mode: Practice / Range",
-            "View: Ball data + dispersion circles",
-            "Normalization: ON (neutral conditions)"
           ]
         }
       ]
@@ -43,7 +26,7 @@
       "title": "Wedges - 10\u201325 min",
       "items": [
         {
-          "label": "Full swings only. Capture carry, launch, spin. Aim small, commit.",
+          "label": "Full swings only. Capture carry/launch/spin (app).",
           "perClub": [
             {
               "club": "PW (46\u00b0)",
@@ -61,40 +44,6 @@
               "club": "60\u00b0",
               "balls": 8
             }
-          ],
-          "logSchema": [
-            {
-              "type": "number",
-              "id": "carry_avg",
-              "label": "Carry avg (yd)"
-            },
-            {
-              "type": "number",
-              "id": "spin_avg",
-              "label": "Spin avg (rpm)"
-            },
-            {
-              "type": "number",
-              "id": "circle_width",
-              "label": "Dispersion width (yd)"
-            },
-            {
-              "type": "select",
-              "id": "miss_bias",
-              "label": "Miss bias",
-              "options": [
-                "None",
-                "Left",
-                "Right",
-                "Short",
-                "Long"
-              ]
-            }
-          ],
-          "trackman": [
-            "View: Table (Carry, Spin, Launch, Peak H, Descent)",
-            "Tip: Favor carry number (not total).",
-            "Save dispersion screenshot for each wedge."
           ]
         }
       ]
@@ -103,7 +52,7 @@
       "title": "Mid/Long Irons - 25\u201340 min",
       "items": [
         {
-          "label": "Playability check. Does it hold greens? Compare 5i vs 4i.",
+          "label": "Green-holding check. Compare 5i vs 4i: peak & descent.",
           "perClub": [
             {
               "club": "5i",
@@ -113,27 +62,6 @@
               "club": "4i",
               "balls": 8
             }
-          ],
-          "logSchema": [
-            {
-              "type": "number",
-              "id": "peak_height",
-              "label": "Peak height (yd)"
-            },
-            {
-              "type": "number",
-              "id": "descent_angle",
-              "label": "Descent angle (\u00b0)"
-            },
-            {
-              "type": "number",
-              "id": "std_dev_carry",
-              "label": "Carry std dev (yd)"
-            }
-          ],
-          "trackman": [
-            "Compare: Peak height & Descent angle for green-holding.",
-            "Note std dev of carry to judge consistency."
           ]
         }
       ]
@@ -142,7 +70,7 @@
       "title": "Driver vs 4W - 40\u201355 min",
       "items": [
         {
-          "label": "Alternate Driver \u2194 4W. Hit stock fairway-finder swings.",
+          "label": "Alternate stock swings. Favor dispersion over max.",
           "perClub": [
             {
               "club": "Driver",
@@ -152,38 +80,6 @@
               "club": "4W",
               "balls": 8
             }
-          ],
-          "logSchema": [
-            {
-              "type": "number",
-              "id": "driver_spin",
-              "label": "Driver spin (rpm)"
-            },
-            {
-              "type": "number",
-              "id": "driver_carry",
-              "label": "Driver carry (yd)"
-            },
-            {
-              "type": "number",
-              "id": "fw_spin",
-              "label": "4W spin (rpm)"
-            },
-            {
-              "type": "number",
-              "id": "fw_carry",
-              "label": "4W carry (yd)"
-            },
-            {
-              "type": "number",
-              "id": "fairway_width",
-              "label": "Dispersion width (yd)"
-            }
-          ],
-          "trackman": [
-            "Mode: Compare Clubs",
-            "Check: Carry vs Total, Spin, Side dispersion",
-            "Normalization: ON"
           ]
         }
       ]
@@ -192,29 +88,8 @@
       "title": "Pressure Test - 55\u201360 min",
       "items": [
         {
-          "label": "Targets: 95, 150, 185, 230 \u2014 one ball each. No redos.",
-          "balls": 4,
-          "logSchema": [
-            {
-              "type": "select",
-              "id": "result",
-              "label": "Result",
-              "options": [
-                "Hit target",
-                "Playable miss",
-                "Bad miss"
-              ]
-            },
-            {
-              "type": "text",
-              "id": "note",
-              "label": "Note"
-            }
-          ],
-          "trackman": [
-            "Use Combine or Target Practice.",
-            "Record first-try outcomes only."
-          ]
+          "label": "Targets: 95,150,185,230 \u2014 one ball each. No redos.",
+          "balls": 4
         }
       ]
     }
@@ -224,7 +99,7 @@
       "title": "Dynamic Warm-Up - 5 min",
       "items": [
         {
-          "label": "Mobility + quarter/half swings. Tempo 3:1. Hit through to finish.",
+          "label": "Mobility + quarter/half swings. Tempo 3:1.",
           "perClub": [
             {
               "club": "PW",
@@ -234,7 +109,7 @@
           "logSchema": [
             {
               "type": "number",
-              "id": "tempo_feel",
+              "id": "tempo",
               "label": "Tempo feel (1\u201310)"
             }
           ]
@@ -242,10 +117,10 @@
       ]
     },
     {
-      "title": "Block Practice - 15 min",
+      "title": "Block Start Lines - 15 min",
       "items": [
         {
-          "label": "Start-line training. One target. Face-to-path awareness.",
+          "label": "7i to same target. Start line awareness.",
           "perClub": [
             {
               "club": "7i",
@@ -255,17 +130,9 @@
           "logSchema": [
             {
               "type": "number",
-              "id": "start_line_rate",
-              "label": "Start-line success (out of 15)"
-            },
-            {
-              "type": "text",
-              "id": "swing_cue",
-              "label": "Best swing cue"
+              "id": "start_ok",
+              "label": "On start line (out of 15)"
             }
-          ],
-          "references": [
-            "Random vs Blocked practice: better retention with variability."
           ]
         }
       ]
@@ -274,17 +141,17 @@
       "title": "Random Practice - 20 min",
       "items": [
         {
-          "label": "New yardage each ball (120\u2013190). Full routine each swing.",
+          "label": "New yardage each ball (120\u2013190). Full routine.",
           "balls": 20,
           "logSchema": [
             {
               "type": "number",
-              "id": "greens_hit",
-              "label": "Greens/Targets hit"
+              "id": "targets_hit",
+              "label": "Targets hit"
             },
             {
               "type": "text",
-              "id": "miss_pattern",
+              "id": "miss",
               "label": "Common miss"
             }
           ]
@@ -295,7 +162,7 @@
       "title": "Wedge Ladder - 10 min",
       "items": [
         {
-          "label": "Full swings: PW, 52\u00b0, 56\u00b0, 60\u00b0. Land past the front edge.",
+          "label": "Full swings to known carries.",
           "perClub": [
             {
               "club": "PW (46\u00b0)",
@@ -317,12 +184,9 @@
           "logSchema": [
             {
               "type": "number",
-              "id": "inside_20ft",
+              "id": "inside20",
               "label": "Inside 20 ft (count)"
             }
-          ],
-          "references": [
-            "Brad Faxon on speed & commitment; wedge ladder variants."
           ]
         }
       ]
@@ -331,12 +195,12 @@
       "title": "Pressure Finish - 10 min",
       "items": [
         {
-          "label": "Par\u201118: 9 approach targets, one ball each. Score it.",
+          "label": "Par\u201118: 9 approach targets, one ball each.",
           "balls": 9,
           "logSchema": [
             {
               "type": "number",
-              "id": "score",
+              "id": "par18",
               "label": "Par\u201118 score"
             }
           ]
@@ -349,12 +213,12 @@
       "title": "Chip Fundamentals - 10 min",
       "items": [
         {
-          "label": "Ball back, slight shaft lean, minimal wrist. Land\u2011spot practice.",
+          "label": "Land\u2011spot 3/6/9 paces. Minimal wrist.",
           "balls": 24,
           "logSchema": [
             {
               "type": "number",
-              "id": "inside_3ft",
+              "id": "inside3",
               "label": "Inside 3 ft (count)"
             }
           ]
@@ -365,7 +229,7 @@
       "title": "Pitch Height Control - 10 min",
       "items": [
         {
-          "label": "Low/Medium/High flights with 56\u00b0. Match speed to landing.",
+          "label": "Low/Mid/High with 56\u00b0. Match speed to land.",
           "perClub": [
             {
               "club": "56\u00b0 (low)",
@@ -396,36 +260,17 @@
       ]
     },
     {
-      "title": "Up-and-Down Game - 20 min",
+      "title": "Up\u2011and\u2011Down Game - 20 min",
       "items": [
         {
-          "label": "10 random lies \u2014 one ball each. Par = 2. Track score.",
+          "label": "10 random lies \u2014 one ball each. Par = 2.",
           "balls": 10,
           "logSchema": [
             {
               "type": "number",
-              "id": "up_downs",
+              "id": "updowns",
               "label": "Up\u2011and\u2011downs (out of 10)"
             }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Lag Putting - 10 min",
-      "items": [
-        {
-          "label": "20\u201340 ft ladder drill. Past the hole beats short.",
-          "balls": 20,
-          "logSchema": [
-            {
-              "type": "number",
-              "id": "inside_3ft",
-              "label": "Inside 3 ft (count)"
-            }
-          ],
-          "references": [
-            "Brad Faxon speed control principles."
           ]
         }
       ]
@@ -436,7 +281,7 @@
       "title": "Entry & Exit - 10 min",
       "items": [
         {
-          "label": "Open face, aim left, weight forward. Splash 1\u20132 in. behind.",
+          "label": "Open face, weight forward. Splash 1\u20132 in. behind.",
           "perClub": [
             {
               "club": "56\u00b0/58\u00b0",
@@ -446,8 +291,8 @@
           "logSchema": [
             {
               "type": "number",
-              "id": "up_and_out_rate",
-              "label": "Up\u2011and\u2011out success (out of 12)"
+              "id": "up_out",
+              "label": "Up\u2011and\u2011out (out of 12)"
             }
           ]
         }
@@ -457,7 +302,7 @@
       "title": "Distance Control - 10 min",
       "items": [
         {
-          "label": "Same swing. Change face & stance. Targets: 10/20/30 ft.",
+          "label": "Same swing; vary face/stance. 10/20/30 ft.",
           "perClub": [
             {
               "club": "56\u00b0/58\u00b0 (10 ft)",
@@ -475,49 +320,58 @@
           "logSchema": [
             {
               "type": "number",
-              "id": "hole_high_rate",
+              "id": "hole_high",
               "label": "Hole\u2011high (out of 18)"
             }
           ]
         }
       ]
-    },
+    }
+  ],
+  "Putting": [
     {
-      "title": "Plugged & Uphill Lies - 10 min",
+      "title": "Start Line Gate - 10 min",
       "items": [
         {
-          "label": "Plugged: steeper, more loft. Uphill: match shoulders to slope.",
-          "perClub": [
-            {
-              "club": "Plugged lie",
-              "balls": 6
-            },
-            {
-              "club": "Uphill lie",
-              "balls": 6
-            }
-          ],
+          "label": "2 tees 1 ball\u2011width apart, 6\u20138 ft putts.",
+          "balls": 20,
           "logSchema": [
             {
-              "type": "text",
-              "id": "best_adjustment",
-              "label": "Best adjustment cue"
+              "type": "number",
+              "id": "makes_gate",
+              "label": "Makes (out of 20)"
             }
           ]
         }
       ]
     },
     {
-      "title": "Up-and-Down Game - 10 min",
+      "title": "Speed Ladder - 10 min",
       "items": [
         {
-          "label": "8 random bunker lies \u2014 one ball each. Sand save %.",
-          "balls": 8,
+          "label": "20/30/40 ft. Stop inside 3 ft past hole.",
+          "balls": 18,
           "logSchema": [
             {
               "type": "number",
-              "id": "sand_saves",
-              "label": "Sand saves (out of 8)"
+              "id": "inside3",
+              "label": "Inside 3 ft (count)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Pressure Circle - 10 min",
+      "items": [
+        {
+          "label": "10 putts from 6\u20138 ft, one ball each.",
+          "balls": 10,
+          "logSchema": [
+            {
+              "type": "number",
+              "id": "makes",
+              "label": "Makes (out of 10)"
             }
           ]
         }
@@ -529,12 +383,12 @@
       "title": "Tiger: Nine Windows (Irons)",
       "items": [
         {
-          "label": "Hit 9 trajectories: Low/Mid/High \u00d7 Straight/Draw/Fade.",
+          "label": "Low/Mid/High \u00d7 Straight/Draw/Fade.",
           "balls": 9,
           "logSchema": [
             {
               "type": "select",
-              "id": "hardest_window",
+              "id": "hardest",
               "label": "Hardest window",
               "options": [
                 "Low draw",
@@ -548,9 +402,6 @@
                 "High fade"
               ]
             }
-          ],
-          "references": [
-            "Tiger Woods Nine Windows drill."
           ]
         }
       ]
@@ -559,42 +410,8 @@
       "title": "TrackMan Combine (Benchmark)",
       "items": [
         {
-          "label": "Run full Combine. Save scores per distance and overall.",
-          "balls": 60,
-          "logSchema": [
-            {
-              "type": "number",
-              "id": "combine_score",
-              "label": "Combine score (0\u2013100)"
-            }
-          ],
-          "trackman": [
-            "Mode: Combine \u2014 standardized 60\u2011shot test."
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Faxon: Pressure Putting",
-      "items": [
-        {
-          "label": "Build speed skill: Ladder then one\u2011ball pressure putts.",
-          "balls": 30,
-          "logSchema": [
-            {
-              "type": "number",
-              "id": "makes",
-              "label": "Makes (count)"
-            },
-            {
-              "type": "text",
-              "id": "speed_note",
-              "label": "Speed note"
-            }
-          ],
-          "references": [
-            "Brad Faxon pressure/ladder drills."
-          ]
+          "label": "60\u2011shot test. Save scores in app.",
+          "balls": 60
         }
       ]
     }

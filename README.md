@@ -1,23 +1,23 @@
-# Practice Playbook Pro (GitHub Pages)
+# Practice Playbook v2 (GitHub Pages)
 
-Mobile-first, swipeable practice playbook with: 
-- Session logger (localStorage) + export
-- Dynamic per-task logging fields (number/select/text/checkbox)
-- TrackMan mode toggle (adds TM-specific tips per step)
-- Light/Dark themes
-- Fixed swipe (works on every card)
+**What's new**
+- Smooth, native **swipe** with CSS **Scroll Snap** (no janky JS drags).
+- Buttons wired via standard event listeners.
+- **TrackMan toggle removed** (you already have a Simulator tab).
+- **Putting** tab added.
+- **Logging disabled** for Simulator; enabled for Range/Short Game/Putting/Bunker.
+- Cleaner card layout with less wasted space.
 
-## Deploy (GitHub Pages)
-1. New repo (e.g., `practice-playbook-pro`).
-2. Upload all files to repo root.
-3. Settings → Pages → Source = Deploy from a branch → `main` / root.
-4. Open `https://<user>.github.io/practice-playbook-pro/`
+**Deploy**
+1) Create a repo (e.g., `practice-playbook-v2`)  
+2) Upload all files to repo root  
+3) Settings → Pages → Deploy from a branch → `main` / root  
+4) Open `https://<user>.github.io/practice-playbook-v2/`
 
-## Customize
-- Edit `routines.json` to change steps, ball counts, and logging fields.
-- Supported `logSchema` types: `number`, `text`, `select`, `checkbox`.
-- Add TrackMan tips per item via `"trackman": ["...","..."]` arrays.
+**Edit routines**
+- Change ball counts/log fields in `routines.json`.  
+- Logging fields appear only if the category allows logging (non‑Simulator).
 
-## Data
-- Logs are saved locally in `localStorage` under `pp_sessions`.
-- Use **Export** to download a JSON of your sessions.
+**Tech notes**
+- Uses CSS Scroll Snap for horizontal paging.
+- Uses passive listeners & requestAnimationFrame for smooth indicator updates.
