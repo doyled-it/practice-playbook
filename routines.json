@@ -4,7 +4,9 @@
       "title": "Warm-Up - 0\u201310 min",
       "items": [
         {
-          "label": "Tempo only. Aim center target. Finish in balance.",
+          "label": "Tempo only. Balance through finish; aim center target.",
+          "quickTip": "PW \u2192 7i \u2192 Driver, 6 balls each. Smooth tempo, 70% speed.",
+          "insight": "Keep grip pressure light (4/10) and finish in balance. Think 'brush the grass' with irons and 'wide then quick' with driver \u2014 this builds speed without getting quick from the top.",
           "perClub": [
             {
               "club": "PW",
@@ -26,7 +28,9 @@
       "title": "Wedges - 10\u201325 min",
       "items": [
         {
-          "label": "Full swings only. Capture carry/launch/spin (app).",
+          "label": "Full swings only. Capture carry/launch/spin in app.",
+          "quickTip": "Aim at a small target; swing the same tempo every shot.",
+          "insight": "For flighted wedges, narrow stance, slight handle forward, and keep launch under ~30\u00b0. Picture a 'low window' 4\u20135 ft high ~7 ft ahead. Prioritize consistent carry \u2014 not total.",
           "perClub": [
             {
               "club": "PW (46\u00b0)",
@@ -52,7 +56,9 @@
       "title": "Mid/Long Irons - 25\u201340 min",
       "items": [
         {
-          "label": "Green-holding check. Compare 5i vs 4i: peak & descent.",
+          "label": "Green\u2011holding check. Compare 5i vs 4i: peak & descent.",
+          "quickTip": "Same target. Alternate 2\u00d75i / 2\u00d74i to compare.",
+          "insight": "A playable long iron holds greens when peak height is adequate and descent angle is steep enough. If 4i lands shallow or dispersion balloons, treat it as a layup club.",
           "perClub": [
             {
               "club": "5i",
@@ -71,6 +77,8 @@
       "items": [
         {
           "label": "Alternate stock swings. Favor dispersion over max.",
+          "quickTip": "D\u20114W\u2011D\u20114W in pairs. Fairway\u2011finder only.",
+          "insight": "Compare carry, side dispersion, and spin. If 4W is tighter with comparable distance to a conservative driver, ride it \u2014 it's often easier to launch and control off the deck and tee.",
           "perClub": [
             {
               "club": "Driver",
@@ -88,7 +96,9 @@
       "title": "Pressure Test - 55\u201360 min",
       "items": [
         {
-          "label": "Targets: 95,150,185,230 \u2014 one ball each. No redos.",
+          "label": "Targets: 95, 150, 185, 230 \u2014 one ball each. No redos.",
+          "quickTip": "One swing per target; commit to your number.",
+          "insight": "Treat this like the course: routine \u2192 commit \u2192 accept. Log the first\u2011try outcomes only to train decision confidence.",
           "balls": 4
         }
       ]
@@ -100,6 +110,8 @@
       "items": [
         {
           "label": "Mobility + quarter/half swings. Tempo 3:1.",
+          "quickTip": "PW only. 12 balls. Smooth and centered strikes.",
+          "insight": "Focus on low\u2011point control: brush just after the ball. Auditory feedback (brushing sound) helps lock in consistent contact.",
           "perClub": [
             {
               "club": "PW",
@@ -120,7 +132,9 @@
       "title": "Block Start Lines - 15 min",
       "items": [
         {
-          "label": "7i to same target. Start line awareness.",
+          "label": "7i to same target. Start\u2011line awareness.",
+          "quickTip": "Pick a blade of grass 1\u20132 ft ahead and start over it.",
+          "insight": "Calibrate face\u2011to\u2011path: tiny push\u2011draw and tiny cut are both fine \u2014 the discipline is starting over your intermediate spot repeatedly.",
           "perClub": [
             {
               "club": "7i",
@@ -142,6 +156,8 @@
       "items": [
         {
           "label": "New yardage each ball (120\u2013190). Full routine.",
+          "quickTip": "Pick a number \u2192 pick a club \u2192 one ball only.",
+          "insight": "Randomization builds retention and transfer. Change target shape and yardage every swing to simulate the course.",
           "balls": 20,
           "logSchema": [
             {
@@ -163,6 +179,8 @@
       "items": [
         {
           "label": "Full swings to known carries.",
+          "quickTip": "PW\u219260\u00b0. Land past the front edge; control flight.",
+          "insight": "Weight 60\u201370% lead side, shallow thump, hold your finish. Match backswing length to the window but keep tempo constant.",
           "perClub": [
             {
               "club": "PW (46\u00b0)",
@@ -196,6 +214,8 @@
       "items": [
         {
           "label": "Par\u201118: 9 approach targets, one ball each.",
+          "quickTip": "Score it. No second balls.",
+          "insight": "End with pressure to encode decision\u2011making under fatigue. Record score and dominant miss.",
           "balls": 9,
           "logSchema": [
             {
@@ -214,6 +234,8 @@
       "items": [
         {
           "label": "Land\u2011spot 3/6/9 paces. Minimal wrist.",
+          "quickTip": "Ball slightly back, handle a hair forward.",
+          "insight": "Feel chest\u2011driven motion: arms and club move together. Land on a coin\u2011sized spot and let rollout do the work.",
           "balls": 24,
           "logSchema": [
             {
@@ -230,6 +252,8 @@
       "items": [
         {
           "label": "Low/Mid/High with 56\u00b0. Match speed to land.",
+          "quickTip": "Same swing, change ball position/face to change flight.",
+          "insight": "Train three windows: ball back/neutral/forward with corresponding face. Keep speed through the ball; use the bounce, not the leading edge.",
           "perClub": [
             {
               "club": "56\u00b0 (low)",
@@ -264,6 +288,8 @@
       "items": [
         {
           "label": "10 random lies \u2014 one ball each. Par = 2.",
+          "quickTip": "Read lie \u2192 choose landing \u2192 commit.",
+          "insight": "Change lie/trajectory each rep. Keep a simple pre\u2011shot: lie \u2192 landing \u2192 loft \u2192 swing cue.",
           "balls": 10,
           "logSchema": [
             {
@@ -282,6 +308,8 @@
       "items": [
         {
           "label": "Open face, weight forward. Splash 1\u20132 in. behind.",
+          "quickTip": "Chest turns, sand exits with the ball.",
+          "insight": "Feel the bounce slide. Keep speed; don\u2019t stop in the sand. Picture throwing a shovel of sand onto the green.",
           "perClub": [
             {
               "club": "56\u00b0/58\u00b0",
@@ -303,6 +331,8 @@
       "items": [
         {
           "label": "Same swing; vary face/stance. 10/20/30 ft.",
+          "quickTip": "Open more for higher/shorter; square more for lower/longer.",
+          "insight": "Use stance width and face openness to scale carry without changing effort. Maintain consistent entry depth behind ball.",
           "perClub": [
             {
               "club": "56\u00b0/58\u00b0 (10 ft)",
@@ -333,7 +363,9 @@
       "title": "Start Line Gate - 10 min",
       "items": [
         {
-          "label": "2 tees 1 ball\u2011width apart, 6\u20138 ft putts.",
+          "label": "Two tees as a gate, 6\u20138 ft putts.",
+          "quickTip": "Set the gate just wider than a ball. 20 reps.",
+          "insight": "Shoulder\u2011driven stroke, quiet wrists. Miss the tees on the way back and through; hold the face to the intermediate spot for 6 inches post\u2011impact.",
           "balls": 20,
           "logSchema": [
             {
@@ -349,7 +381,9 @@
       "title": "Speed Ladder - 10 min",
       "items": [
         {
-          "label": "20/30/40 ft. Stop inside 3 ft past hole.",
+          "label": "20/30/40 ft. Stop inside 3 ft past the hole.",
+          "quickTip": "Match backswing length to distance; even tempo.",
+          "insight": "Build a personal pace map: same tempo, longer stroke for longer putts. Past\u2011the\u2011hole beats short \u2014 train capture speed.",
           "balls": 18,
           "logSchema": [
             {
@@ -366,6 +400,8 @@
       "items": [
         {
           "label": "10 putts from 6\u20138 ft, one ball each.",
+          "quickTip": "Full routine; read once; commit.",
+          "insight": "Visualize entry point and last 2 feet. Breathe \u2192 look \u2192 roll. Record make % to track pressure skill.",
           "balls": 10,
           "logSchema": [
             {
@@ -384,6 +420,8 @@
       "items": [
         {
           "label": "Low/Mid/High \u00d7 Straight/Draw/Fade.",
+          "quickTip": "Hold same posture; change face/ball position for window.",
+          "insight": "Hit 9 flights in a 3\u00d73 grid. Control start line first; then shape and height. This builds command of trajectory windows and curvature.",
           "balls": 9,
           "logSchema": [
             {
@@ -410,7 +448,9 @@
       "title": "TrackMan Combine (Benchmark)",
       "items": [
         {
-          "label": "60\u2011shot test. Save scores in app.",
+          "label": "60\u2011shot standardized test (carry based).",
+          "quickTip": "6 shots to each target distance, plus drivers.",
+          "insight": "Targets typically cover 60\u2013180 yds and driver. Use results to set practice priorities by distance.",
           "balls": 60
         }
       ]

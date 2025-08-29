@@ -1,7 +1,6 @@
 let DATA = {};
 let currentCategory = null;
 let stepIndex = 0;
-
 let sessionId = null;
 
 async function loadData() {
@@ -35,12 +34,8 @@ function render() {
   const carousel = document.getElementById('carousel');
   carousel.innerHTML = '';
   const steps = DATA[currentCategory] || [];
-  steps.forEach((step, i) => {
-    const card = createCard(step, i);
-    carousel.appendChild(card);
-  });
+  steps.forEach((step, i) => carousel.appendChild(createCard(step, i)));
   updateIndicator();
-  // Snap to first card
   requestAnimationFrame(() => {
     const current = carousel.children[stepIndex];
     current?.scrollIntoView({behavior:'instant', inline:'center', block:'nearest'});
@@ -48,7 +43,7 @@ function render() {
 }
 
 function createCard(step, index) {
-  const showLogging = currentCategory !== 'Simulator'; // Simulator: no logging
+  const allowLogging = currentCategory !== 'Simulator';
   const card = document.createElement('section');
   card.className = 'card';
   card.setAttribute('role','group');
@@ -56,10 +51,18 @@ function createCard(step, index) {
 
   const itemsHtml = step.items.map(renderItem).join('');
   let formHtml = '';
-  if (showLogging) {
+  if (allowLogging) {
     const schemas = step.items.flatMap(it => (it.logSchema || []).map(s => ({...s, scope: it.label || step.title})));
-    if (schemas.length) formHtml = renderForm(schemas);
+    if (schemas.length) formHtml = renderForm(schemas, index);
   }
+
+  // Quick Tip / Pro Insight blocks (merged across items in step)
+  const quicks = [];
+  const insights = [];
+  step.items.forEach(it => {
+    if (it.quickTip) quicks.push(`<li>${it.quickTip}</li>`);
+    if (it.insight)  insights.push(`<li>${it.insight}</li>`);
+  });
 
   card.innerHTML = `
     <div class="headerline">
@@ -67,11 +70,13 @@ function createCard(step, index) {
       <div class="kicker">${index+1}/${(DATA[currentCategory]||[]).length}</div>
     </div>
     <h2>${step.title}</h2>
-    <ul>${itemsHtml}</ul>
-    ${formHtml}
+    <div class="content">
+      <div class="section tip"><h3>Quick Tips</h3><ul>${quicks.join('') || '<li>Focus on the key feel.</li>'}</ul></div>
+      <ul>${itemsHtml}</ul>
+      <div class="section insight"><h3>Pro Insights</h3><ul>${insights.join('') || '<li>Focus on start line, contact, and commitment.</li>'}</ul></div>
+      ${formHtml}
+    </div>
   `;
-
-  // Attach inline buttons per card (optional in future)
   return card;
 }
 
@@ -86,14 +91,14 @@ function renderItem(item) {
   return html;
 }
 
-function renderForm(schemas) {
+function renderForm(schemas, idx) {
   const rows = [];
   for (const s of schemas) {
     let input = '';
-    const id = `f_${s.id}`;
+    const id = `f_${idx}_${s.id}`; // ensure unique per slide
     if (s.type === 'number') input = `<input class="log-input" type="number" id="${id}" placeholder="${s.label}">`;
     else if (s.type === 'text') input = `<textarea class="log-input" id="${id}" placeholder="${s.label}"></textarea>`;
-    else if (s.type === 'select') input = `<select class="log-input" id="${id}">${s.options.map(o => `<option>${o}</option>`).join('')}</select>`;
+    else if (s.type === 'select') input = `<select class="log-input" id="${id}">${(s.options||[]).map(o => `<option>${o}</option>`).join('')}</select>`;
     else if (s.type === 'checkbox') input = `<input class="log-input" type="checkbox" id="${id}">`;
     else input = `<input class="log-input" type="text" id="${id}" placeholder="${s.label}">`;
     rows.push(`<div><label for="${id}">${s.label}</label>${input}</div>`);
@@ -134,7 +139,7 @@ function scrollToIndex(i) {
 document.getElementById('prevBtn').addEventListener('click', prev);
 document.getElementById('nextBtn').addEventListener('click', next);
 
-// Pointer gesture fallback to set stepIndex based on scroll position (smooth & reliable)
+// Scroll position -> stepIndex (smooth indicator)
 const carousel = document.getElementById('carousel');
 let rafId = null;
 function onScroll() {
@@ -164,7 +169,7 @@ document.getElementById('themeBtn').addEventListener('click', () => {
   if (saved === 'light') document.body.classList.add('light');
 })();
 
-// ------- Session logging (localStorage) -------
+// Session logging (Range/Short Game/Bunker/Putting only)
 function startSession() {
   sessionId = 'sess_' + new Date().toISOString();
   alert('Session started');
@@ -172,10 +177,12 @@ function startSession() {
 function saveStep() {
   if (!sessionId) { alert('Start a session first'); return; }
   if (currentCategory === 'Simulator') { alert('Logging disabled in Simulator'); return; }
+
   const steps = DATA[currentCategory] || [];
   const step = steps[stepIndex];
+  const visibleCard = document.getElementById('carousel').children[stepIndex];
   const entries = {};
-  document.querySelectorAll('.card')[stepIndex].querySelectorAll('.log-input').forEach(el => {
+  visibleCard.querySelectorAll('.log-input').forEach(el => {
     const id = el.id || Math.random().toString(36).slice(2);
     entries[id] = (el.type === 'checkbox') ? el.checked : el.value;
   });
