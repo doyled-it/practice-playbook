@@ -38,42 +38,25 @@
           <select id="routineSelect"></select>
         </div>
         <div class="field">
+          <label>Duration (minutes)</label>
+          <input type="number" id="durationInput" min="5" max="240" />
+        </div>
+        <div class="field">
           <label>Notes (optional)</label>
           <textarea id="planNotes" placeholder="Goals, focus, course vibes…"></textarea>
         </div>
-
-        <div id="simAttach" class="sim-only hidden">
-          <div class="section sim">
-            <h3>Simulator Attachments</h3>
-            <div class="field">
-              <label>Links (comma-separated)</label>
-              <input type="text" id="simLinks" placeholder="https://..., https://...">
-            </div>
-            <div class="field">
-              <label>Screenshots / PDFs</label>
-              <input type="file" id="simFiles" accept="image/*,application/pdf" multiple>
-              <small>Stored locally via IndexedDB. For many large files, prefer cloud links.</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="actions-row">
+        <div class="actions-row stack">
           <button id="startSessionBtn" class="pill">Start Session ▶</button>
         </div>
       </div>
 
       <div class="card tips">
-        <h2>How this works</h2>
-        <ul>
-          <li>Select a location and routine, then hit Start.</li>
-          <li>Swipe through the steps (cards). Logging is on for Range/Short Game/Putting/Bunker, and off in Simulator.</li>
-          <li>When finished, tap End Session to save it locally.</li>
-        </ul>
-      </div>
-
-      <div class="actions-row">
-        <button id="exportBtn" class="pill ghost">Export JSON</button>
-        <label class="importer pill ghost">Import JSON<input type="file" id="importInput" accept="application/json"></label>
+        <h2>Data Backup</h2>
+        <p>Sessions are saved in IndexedDB (offline capable). You can export/import to move data across devices.</p>
+        <div class="actions-row stack">
+          <button id="exportBtn" class="pill ghost">Export JSON</button>
+          <label class="importer pill ghost">Import JSON<input type="file" id="importInput" accept="application/json"></label>
+        </div>
       </div>
     </section>
   </template>
@@ -82,7 +65,11 @@
     <section class="practice">
       <div class="headerline">
         <div class="kicker" id="practiceMeta"></div>
-        <div class="kicker"><span id="stepIndicator">1/5</span></div>
+        <div class="kicker">
+          <span id="timerDisplay">00:00</span>
+          <button id="timerToggle" class="chip">Pause</button>
+          <button id="timerAdd" class="chip">+1m</button>
+        </div>
       </div>
 
       <nav class="tabs" id="tabs"></nav>
@@ -93,8 +80,9 @@
 
       <footer class="footer">
         <button id="prevBtn" class="pill">◀ Prev</button>
+        <div id="stepIndicator" class="indicator">1/5</div>
         <button id="saveBtn" class="pill ghost">Save Step</button>
-        <button id="endBtn" class="pill ghost">End Session</button>
+        <button id="endBtn" class="pill ghost">Save Session</button>
         <button id="nextBtn" class="pill">Next ▶</button>
       </footer>
     </section>
@@ -122,6 +110,29 @@
       <div id="trendNote" class="kicker"></div>
     </section>
   </template>
+
+  <!-- Save dialog for Simulator attachments (post-practice) -->
+  <div id="saveDialog" class="dialog hidden" role="dialog" aria-modal="true">
+    <div class="dialog-card">
+      <h2>Save Session</h2>
+      <div id="simAttach" class="section sim hidden">
+        <h3>Simulator Attachments</h3>
+        <div class="field">
+          <label>Links (comma-separated)</label>
+          <input type="text" id="simLinks" placeholder="https://..., https://...">
+        </div>
+        <div class="field">
+          <label>Screenshots / PDFs</label>
+          <input type="file" id="simFiles" accept="image/*,application/pdf" multiple>
+          <small>Stored locally via IndexedDB. For many large files, prefer cloud links.</small>
+        </div>
+      </div>
+      <div class="actions-row stack">
+        <button id="cancelSave" class="pill ghost">Cancel</button>
+        <button id="confirmSave" class="pill">Save</button>
+      </div>
+    </div>
+  </div>
 
   <script src="idb.js"></script>
   <script src="app.js"></script>

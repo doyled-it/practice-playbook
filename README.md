@@ -24,3 +24,12 @@
 ## Notes
 - Caching uses **cache‑first** for static assets and **network‑first** for `routines.json` so you can update routines without a full redeploy.
 - If you ever change filenames, bump `CACHE_NAME` in `service-worker.js` to invalidate old caches.
+
+
+**v9**
+- Real routines via `programs.json` (choose different task sets per location)
+- Fixed mobile overflow on Practice (carousel now fits viewport width)
+- Export/Import in dedicated card with stacked buttons on mobile
+- Simulator attachments moved to **post-practice Save** dialog
+- Button now says **Save Session**
+- Added built-in **session timer** (pause/resume, +1m, vibrates on finish)

@@ -1,0 +1,104 @@
+{
+  "Simulator": [
+    {
+      "id": "sim55",
+      "name": "Sim \u2014 55 min (clean blocks)",
+      "steps": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "defaultMinutes": 55
+    },
+    {
+      "id": "sim30",
+      "name": "Sim \u2014 30 min Express",
+      "steps": [
+        0,
+        1,
+        3,
+        4
+      ],
+      "defaultMinutes": 30
+    }
+  ],
+  "Range": [
+    {
+      "id": "rng60",
+      "name": "Range \u2014 60 min Standard",
+      "steps": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "defaultMinutes": 60
+    },
+    {
+      "id": "rng30",
+      "name": "Range \u2014 30 min Sharp",
+      "steps": [
+        0,
+        2,
+        4
+      ],
+      "defaultMinutes": 30
+    }
+  ],
+  "Short Game": [
+    {
+      "id": "sg40",
+      "name": "Short Game \u2014 40 min",
+      "steps": [
+        0,
+        1,
+        2
+      ],
+      "defaultMinutes": 40
+    },
+    {
+      "id": "sg20",
+      "name": "Short Game \u2014 20 min Tune\u2011up",
+      "steps": [
+        0,
+        1
+      ],
+      "defaultMinutes": 20
+    }
+  ],
+  "Short Game (Bunker)": [
+    {
+      "id": "bk20",
+      "name": "Bunker \u2014 20 min",
+      "steps": [
+        0,
+        1
+      ],
+      "defaultMinutes": 20
+    }
+  ],
+  "Putting": [
+    {
+      "id": "put30",
+      "name": "Putting \u2014 30 min Core",
+      "steps": [
+        0,
+        1,
+        2
+      ],
+      "defaultMinutes": 30
+    },
+    {
+      "id": "put15",
+      "name": "Putting \u2014 15 min Pressure",
+      "steps": [
+        0,
+        2
+      ],
+      "defaultMinutes": 15
+    }
+  ]
+}

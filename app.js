@@ -1,14 +1,24 @@
 let DATA = {};
+let PROGRAMS = {};
 let ROUTES = {};
 let currentRoute = '#home';
 
-// Session state (in-memory until saved)
-let activeSession = null; // {id, ts, location, routineIndex, routineTitle, notes, simLinks[], simFiles[], steps: []}
+// Session state
+let activeSession = null; // {id, ts, location, programId, programName, durationMin, routineTitle, notes, steps:[], simLinks, simFiles}
+let assembledSteps = [];   // Steps for this session (from programs)
+let stepIndex = 0;
 
-// Load routines & init SPA
+// Timer
+let timerMs = 0;
+let timerEnd = null;
+let timerRunning = false;
+let timerTickHandle = null;
+
 async function loadData() {
   const res = await fetch('routines.json');
   DATA = await res.json();
+  const pRes = await fetch('programs.json');
+  PROGRAMS = await pRes.json();
   initRouter();
   navigate('#home');
 }
@@ -47,62 +57,58 @@ function navigate(route) {
 function renderHome() {
   const locSelect = document.getElementById('locSelect');
   const routineSelect = document.getElementById('routineSelect');
+  const durationInput = document.getElementById('durationInput');
   const planNotes = document.getElementById('planNotes');
-  const simAttach = document.getElementById('simAttach');
 
-  // Populate locations
+  // Locations
   Object.keys(DATA).forEach(loc => {
     const opt = document.createElement('option'); opt.value = loc; opt.textContent = loc;
     locSelect.appendChild(opt);
   });
-  locSelect.addEventListener('change', updateRoutines);
-  function updateRoutines() {
+  locSelect.addEventListener('change', updatePrograms);
+
+  function updatePrograms() {
     routineSelect.innerHTML = '';
     const loc = locSelect.value;
-    (DATA[loc]||[]).forEach((step, i) => {
-      const opt = document.createElement('option');
-      opt.value = i;
-      opt.textContent = step.title;
+    const progs = PROGRAMS[loc] || [];
+    progs.forEach(p => {
+      const opt = document.createElement('option'); opt.value = p.id; opt.textContent = p.name; opt.dataset.default = p.defaultMinutes;
       routineSelect.appendChild(opt);
     });
-    simAttach.classList.toggle('hidden', loc !== 'Simulator');
+    if (progs[0]) durationInput.value = progs[0].defaultMinutes || 60;
   }
-  locSelect.value = 'Simulator'; updateRoutines();
 
-  // Attachments
-  const linksInput = document.getElementById('simLinks');
-  const filesInput = document.getElementById('simFiles');
+  // default to Simulator
+  locSelect.value = 'Simulator';
+  updatePrograms();
+  routineSelect.addEventListener('change', () => {
+    const sel = routineSelect.selectedOptions[0];
+    if (sel?.dataset?.default) durationInput.value = sel.dataset.default;
+  });
 
   document.getElementById('startSessionBtn').addEventListener('click', async () => {
     const loc = locSelect.value;
-    const routineIdx = parseInt(routineSelect.value || '0', 10);
-    const routineTitle = (DATA[loc]||[])[routineIdx]?.title || 'Routine';
-
-    // Read files as data URLs
-    const filePromises = [];
-    if (loc === 'Simulator' && filesInput.files?.length) {
-      for (const f of filesInput.files) {
-        filePromises.push(new Promise((resolve,reject)=>{
-          const reader = new FileReader();
-          reader.onload = () => resolve({name: f.name, type: f.type, dataUrl: reader.result});
-          reader.onerror = reject;
-          reader.readAsDataURL(f);
-        }));
-      }
-    }
-    const simFiles = (loc === 'Simulator') ? await Promise.all(filePromises) : [];
-    const simLinks = (loc === 'Simulator') ? (linksInput.value || '').split(',').map(s => s.trim()).filter(Boolean) : [];
+    const progId = routineSelect.value;
+    const progs = PROGRAMS[loc] || [];
+    const prog = progs.find(p => p.id === progId) || progs[0];
+    const allSteps = DATA[loc] || [];
+    assembledSteps = (prog.steps || []).map(idx => allSteps[idx]).filter(Boolean);
 
     activeSession = {
       id: 'sess_' + new Date().toISOString(),
       ts: new Date().toISOString(),
       location: loc,
-      routineIndex: routineIdx,
-      routineTitle,
+      programId: prog.id,
+      programName: prog.name,
+      durationMin: parseInt(durationInput.value || prog.defaultMinutes || 60, 10),
+      routineTitle: prog.name,
       notes: planNotes.value || '',
-      simLinks, simFiles,
-      steps: [] // {title, entries:{}, ts}
+      simLinks: [], simFiles: [],
+      steps: []
     };
+
+    // Timer init
+    startTimer(activeSession.durationMin);
 
     navigate('#practice');
   });
@@ -126,9 +132,30 @@ function renderHome() {
   });
 }
 
-// ---------- Practice Flow ----------
-let stepIndex = 0;
+// ---------- Timer ----------
+function startTimer(mins) {
+  timerMs = mins * 60 * 1000;
+  timerEnd = Date.now() + timerMs;
+  timerRunning = true;
+  tickTimer();
+}
+function tickTimer() {
+  if (!timerRunning) return;
+  const remain = Math.max(0, timerEnd - Date.now());
+  const m = Math.floor(remain/60000);
+  const s = Math.floor((remain%60000)/1000);
+  const display = (m<10?'0':'')+m+':' + (s<10?'0':'')+s;
+  const el = document.getElementById('timerDisplay');
+  if (el) el.textContent = display;
+  if (remain === 0) {
+    timerRunning = false;
+    if (navigator.vibrate) navigator.vibrate([100,100,100]);
+  } else {
+    timerTickHandle = setTimeout(tickTimer, 500);
+  }
+}
 
+// ---------- Practice Flow ----------
 function renderPractice() {
   if (!activeSession) { alert('Start a session from Home'); navigate('#home'); return; }
   stepIndex = 0;
@@ -141,8 +168,7 @@ function renderPractice() {
   const carousel = document.getElementById('carousel');
   carousel.innerHTML = '';
 
-  const steps = DATA[activeSession.location] || [];
-  steps.forEach((step, i) => {
+  assembledSteps.forEach((step, i) => {
     const b = document.createElement('button'); b.className = 'tab'; b.textContent = step.title;
     b.addEventListener('click', () => scrollToIndex(i));
     tabs.appendChild(b);
@@ -152,14 +178,26 @@ function renderPractice() {
   requestAnimationFrame(() => {
     carousel.children[0]?.scrollIntoView({behavior:'instant', inline:'center', block:'nearest'});
   });
+  document.querySelectorAll('.tab')[0]?.classList.add('active');
 
   // Buttons
   document.getElementById('prevBtn').addEventListener('click', prev);
   document.getElementById('nextBtn').addEventListener('click', next);
   document.getElementById('saveBtn').addEventListener('click', saveStepLog);
-  document.getElementById('endBtn').addEventListener('click', endSession);
+  document.getElementById('endBtn').addEventListener('click', openSaveDialog);
 
-  // Scroll handler to keep stepIndex in sync
+  // Timer controls
+  document.getElementById('timerToggle').addEventListener('click', () => {
+    timerRunning = !timerRunning;
+    if (timerRunning) { timerEnd = Date.now() + (timerEnd - Date.now()); tickTimer(); }
+    document.getElementById('timerToggle').textContent = timerRunning ? 'Pause' : 'Resume';
+  });
+  document.getElementById('timerAdd').addEventListener('click', () => {
+    timerEnd += 60*1000;
+    if (!timerRunning) { timerRunning = true; tickTimer(); document.getElementById('timerToggle').textContent = 'Pause'; }
+  });
+
+  // Scroll handler
   let rafId = null;
   carousel.addEventListener('scroll', () => {
     if (rafId) cancelAnimationFrame(rafId);
@@ -201,7 +239,7 @@ function createCard(step, index, allowLogging) {
   card.innerHTML = `
     <div class="headerline">
       <div class="kicker">${activeSession.location}</div>
-      <div class="kicker">${index+1}/${(DATA[activeSession.location]||[]).length}</div>
+      <div class="kicker">${index+1}/${assembledSteps.length}</div>
     </div>
     <h2>${step.title}</h2>
     <div class="content">
@@ -247,11 +285,10 @@ function renderForm(schemas, idx) {
 }
 
 function updateIndicator() {
-  const steps = DATA[activeSession.location] || [];
-  document.getElementById('stepIndicator').textContent = `${stepIndex + 1}/${steps.length}`;
+  document.getElementById('stepIndicator').textContent = `${stepIndex + 1}/${assembledSteps.length}`;
 }
 
-function next() { const steps = DATA[activeSession.location] || []; if (stepIndex < steps.length - 1) { stepIndex++; scrollToIndex(stepIndex); } }
+function next() { if (stepIndex < assembledSteps.length - 1) { stepIndex++; scrollToIndex(stepIndex); } }
 function prev() { if (stepIndex > 0) { stepIndex--; scrollToIndex(stepIndex); } }
 function scrollToIndex(i) {
   const carousel = document.getElementById('carousel');
@@ -263,8 +300,7 @@ function scrollToIndex(i) {
 // Save logs for current step (non-Simulator)
 function saveStepLog() {
   if (activeSession.location === 'Simulator') { alert('Logging disabled in Simulator'); return; }
-  const steps = DATA[activeSession.location] || [];
-  const step = steps[stepIndex];
+  const step = assembledSteps[stepIndex];
   const visibleCard = document.getElementById('carousel').children[stepIndex];
   const entries = {};
   visibleCard.querySelectorAll('.log-input').forEach(el => {
@@ -275,13 +311,43 @@ function saveStepLog() {
   alert('Step saved');
 }
 
-// End session -> persist to IndexedDB
-async function endSession() {
+// Save Session flow with post-practice simulator attachments
+function openSaveDialog() {
+  const dlg = document.getElementById('saveDialog');
+  const simSection = document.getElementById('simAttach');
+  simSection.classList.toggle('hidden', activeSession.location !== 'Simulator');
+  dlg.classList.remove('hidden');
+
+  document.getElementById('cancelSave').onclick = () => dlg.classList.add('hidden');
+  document.getElementById('confirmSave').onclick = confirmSave;
+}
+
+async function confirmSave() {
+  const dlg = document.getElementById('saveDialog');
+  if (activeSession.location === 'Simulator') {
+    const linksInput = document.getElementById('simLinks');
+    const filesInput = document.getElementById('simFiles');
+    activeSession.simLinks = (linksInput.value || '').split(',').map(s => s.trim()).filter(Boolean);
+
+    const filePromises = [];
+    if (filesInput.files?.length) {
+      for (const f of filesInput.files) {
+        filePromises.push(new Promise((resolve,reject)=>{
+          const reader = new FileReader();
+          reader.onload = () => resolve({name: f.name, type: f.type, dataUrl: reader.result});
+          reader.onerror = reject;
+          reader.readAsDataURL(f);
+        }));
+      }
+    }
+    activeSession.simFiles = await Promise.all(filePromises);
+  }
+
   await storageAPI.saveSession(activeSession);
-  // Legacy logs for trends: flatten each step entry into 'logs'
   for (const st of (activeSession.steps || [])) {
     await storageAPI.saveLegacyLog({ id: activeSession.id, ts: st.ts, category: activeSession.location, stepTitle: st.title, entries: st.entries });
   }
+  dlg.classList.add('hidden');
   alert('Session saved');
   activeSession = null;
   navigate('#history');
@@ -293,7 +359,6 @@ async function renderHistory() {
   const filterLoc = document.getElementById('filterLoc');
   const filterText = document.getElementById('filterText');
 
-  // Filters
   Object.keys(DATA).forEach(loc => {
     const opt = document.createElement('option'); opt.value = loc; opt.textContent = loc; filterLoc.appendChild(opt);
   });
@@ -349,7 +414,6 @@ async function renderTrends() {
   const ctx = canvas.getContext('2d');
   const note = document.getElementById('trendNote');
 
-  // Collect numeric field ids across logs
   const metricSet = new Set();
   logs.forEach(l => {
     Object.entries(l.entries||{}).forEach(([k,v]) => { if (!isNaN(parseFloat(v))) metricSet.add(k); });
@@ -383,17 +447,14 @@ async function renderTrends() {
     const xScale = (x)=> pad + (w-2*pad)*( (x - xMin) / Math.max(1,(xMax - xMin)) );
     const yScale = (y)=> h - pad - (h-2*pad)*( (y - yMin) / Math.max(1,(yMax - yMin)) );
 
-    // axes
     ctx.strokeStyle = 'rgba(255,255,255,.4)'; ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(pad, pad); ctx.lineTo(pad, h-pad); ctx.lineTo(w-pad, h-pad); ctx.stroke();
 
-    // line
     ctx.strokeStyle = '#7b61ff'; ctx.lineWidth = 2;
     ctx.beginPath();
     points.forEach((p,i)=>{ const x=xScale(p.t.getTime()), y=yScale(p.v); if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y); });
     ctx.stroke();
 
-    // points
     ctx.fillStyle = '#36c2b3';
     points.forEach(p=>{ const x=xScale(p.t.getTime()), y=yScale(p.v); ctx.beginPath(); ctx.arc(x,y,3,0,Math.PI*2); ctx.fill(); });
   }
