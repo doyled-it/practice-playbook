@@ -8,6 +8,24 @@ let activeSession = null; // {id, ts, location, programId, programName, duration
 let assembledSteps = [];   // Steps for this session (from programs)
 let stepIndex = 0;
 
+// Snap assist: when touch scrolling ends, force snap to nearest slide
+let snapTimer = null;
+function snapToNearest() {
+  const carousel = document.getElementById('carousel');
+  if (!carousel) return;
+  const children = Array.from(carousel.children);
+  const mid = carousel.scrollLeft + carousel.clientWidth/2;
+  let closest = 0, min = Infinity;
+  children.forEach((el, idx) => {
+    const center = el.offsetLeft + el.offsetWidth/2;
+    const d = Math.abs(center - mid);
+    if (d < min) { min = d; closest = idx; }
+  });
+  const el = carousel.children[closest];
+  if (el) el.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+}
+
+
 // Timer
 let timerMs = 0;
 let timerEnd = null;
@@ -217,6 +235,11 @@ function renderPractice() {
 
   // Scroll handler
   let rafId = null;
+  let isTouching = false;
+  carousel.addEventListener('touchstart', ()=>{ isTouching = true; });
+  carousel.addEventListener('touchend', ()=>{ isTouching = false; clearTimeout(snapTimer); snapTimer = setTimeout(snapToNearest, 80); });
+  carousel.addEventListener('pointerdown', ()=>{ isTouching = true; });
+  carousel.addEventListener('pointerup', ()=>{ isTouching = false; clearTimeout(snapTimer); snapTimer = setTimeout(snapToNearest, 80); });
   carousel.addEventListener('scroll', () => {
     if (rafId) cancelAnimationFrame(rafId);
     rafId = requestAnimationFrame(() => {

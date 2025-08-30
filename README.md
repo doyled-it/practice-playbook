@@ -40,3 +40,9 @@
 - **Randomizer** tool for realistic targets (global modal + inline on “Random Practice” steps).
 - **Timer count-up** option (default for Range) with pause/resume and +1m.
 - Removed **Pro Templates** from the Routine dropdown (still available in data for future use if needed).
+
+
+**v11**
+- Solid page snapping on Practice (CSS scroll-snap + gentle JS assist on touch end).
+- Larger, better-aligned dropdowns and fields (44px min height, extra spacing, proper z-index).
+- Extra padding in Practice content so the fixed footer never overlaps inputs.
