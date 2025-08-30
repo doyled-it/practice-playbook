@@ -42,6 +42,10 @@
           <input type="number" id="durationInput" min="5" max="240" />
         </div>
         <div class="field">
+          <label>Timer Mode</label>
+          <select id="timerMode"><option value="up">Count Up</option><option value="down">Count Down</option></select>
+        </div>
+        <div class="field">
           <label>Notes (optional)</label>
           <textarea id="planNotes" placeholder="Goals, focus, course vibes…"></textarea>
         </div>
@@ -66,6 +70,7 @@
       <div class="headerline">
         <div class="kicker" id="practiceMeta"></div>
         <div class="kicker">
+          <button id="openRandomizer" class="chip">🎯 Randomizer</button>
           <span id="timerDisplay">00:00</span>
           <button id="timerToggle" class="chip">Pause</button>
           <button id="timerAdd" class="chip">+1m</button>
@@ -108,6 +113,18 @@
       </div>
       <canvas id="trendChart" height="260"></canvas>
       <div id="trendNote" class="kicker"></div>
+    </section>
+  </template>
+
+  <template id="randomizerTmpl">
+    <section class="card">
+      <h2>Randomize Targets</h2>
+      <div class="field"><label>Count</label><input type="number" id="randCount" value="12" min="1" max="50"></div>
+      <div class="field"><label>Min Yardage</label><input type="number" id="randMin" value="85"></div>
+      <div class="field"><label>Max Yardage</label><input type="number" id="randMax" value="195"></div>
+      <div class="field"><label>Bias Profile</label><select id="randProfile"><option value="balanced">Balanced (80–200)</option><option value="approach">Approach Heavy (120–170)</option><option value="wedges">Wedges Heavy (80–120)</option></select></div>
+      <div class="actions-row"><button id="randGen" class="pill">Generate</button><button id="randCopy" class="pill ghost">Copy</button></div>
+      <pre id="randOut" class="kicker" style="white-space: pre-wrap;"></pre>
     </section>
   </template>
 

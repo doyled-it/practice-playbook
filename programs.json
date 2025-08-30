@@ -22,24 +22,73 @@
         4
       ],
       "defaultMinutes": 30
+    },
+    {
+      "id": "sim_long",
+      "name": "Sim \u2014 Long Irons Focus (35 min)",
+      "steps": [
+        0,
+        2,
+        4
+      ],
+      "defaultMinutes": 35
+    },
+    {
+      "id": "sim_wedges",
+      "name": "Sim \u2014 Wedge Benchmark (30 min)",
+      "steps": [
+        0,
+        1,
+        4
+      ],
+      "defaultMinutes": 30
+    },
+    {
+      "id": "sim_woods",
+      "name": "Sim \u2014 Driver vs 4W Focus (35 min)",
+      "steps": [
+        0,
+        3,
+        4
+      ],
+      "defaultMinutes": 35
     }
   ],
   "Range": [
     {
-      "id": "rng60",
-      "name": "Range \u2014 60 min Standard",
+      "id": "rng_wedges",
+      "name": "Range \u2014 Wedges Calibration (40\u201360 min)",
+      "steps": [
+        0,
+        3,
+        4
+      ],
+      "defaultMinutes": 50
+    },
+    {
+      "id": "rng_irons",
+      "name": "Range \u2014 Long & Mid Irons (45 min)",
       "steps": [
         0,
         1,
         2,
-        3,
         4
       ],
-      "defaultMinutes": 60
+      "defaultMinutes": 45
     },
     {
-      "id": "rng30",
-      "name": "Range \u2014 30 min Sharp",
+      "id": "rng_woods",
+      "name": "Range \u2014 Woods & Tee Shots (40 min)",
+      "steps": [
+        0,
+        2,
+        4
+      ],
+      "defaultMinutes": 40
+    },
+    {
+      "id": "rng_random",
+      "name": "Range \u2014 Randomized Targets (30 min)",
       "steps": [
         0,
         2,

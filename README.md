@@ -33,3 +33,10 @@
 - Simulator attachments moved to **post-practice Save** dialog
 - Button now says **Save Session**
 - Added built-in **session timer** (pause/resume, +1m, vibrates on finish)
+
+
+**v10**
+- Added multiple **focus programs** per location (Wedges / Long Irons / Woods, etc.).
+- **Randomizer** tool for realistic targets (global modal + inline on “Random Practice” steps).
+- **Timer count-up** option (default for Range) with pause/resume and +1m.
+- Removed **Pro Templates** from the Routine dropdown (still available in data for future use if needed).

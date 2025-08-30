@@ -61,7 +61,7 @@ function renderHome() {
   const planNotes = document.getElementById('planNotes');
 
   // Locations
-  Object.keys(DATA).forEach(loc => {
+  Object.keys(DATA).filter(loc => loc !== 'Pro Templates').forEach(loc => {
     const opt = document.createElement('option'); opt.value = loc; opt.textContent = loc;
     locSelect.appendChild(opt);
   });
@@ -86,6 +86,7 @@ function renderHome() {
     if (sel?.dataset?.default) durationInput.value = sel.dataset.default;
   });
 
+  const timerModeSel = document.getElementById('timerMode');
   document.getElementById('startSessionBtn').addEventListener('click', async () => {
     const loc = locSelect.value;
     const progId = routineSelect.value;
@@ -103,12 +104,13 @@ function renderHome() {
       durationMin: parseInt(durationInput.value || prog.defaultMinutes || 60, 10),
       routineTitle: prog.name,
       notes: planNotes.value || '',
+      timerMode: (timerModeSel?.value || (loc === 'Range' ? 'up' : 'down')),
       simLinks: [], simFiles: [],
       steps: []
     };
 
     // Timer init
-    startTimer(activeSession.durationMin);
+    if ((activeSession.timerMode||'down') === 'down') startTimerDown(activeSession.durationMin); else startTimerUp();
 
     navigate('#practice');
   });
@@ -133,13 +135,13 @@ function renderHome() {
 }
 
 // ---------- Timer ----------
-function startTimer(mins) {
+function startTimerDown(mins) {
   timerMs = mins * 60 * 1000;
   timerEnd = Date.now() + timerMs;
   timerRunning = true;
-  tickTimer();
+  tickTimerDown();
 }
-function tickTimer() {
+function tickTimerDown() {
   if (!timerRunning) return;
   const remain = Math.max(0, timerEnd - Date.now());
   const m = Math.floor(remain/60000);
@@ -151,8 +153,19 @@ function tickTimer() {
     timerRunning = false;
     if (navigator.vibrate) navigator.vibrate([100,100,100]);
   } else {
-    timerTickHandle = setTimeout(tickTimer, 500);
+    timerTickHandle = setTimeout(tickTimerDown, 500);
   }
+}
+function startTimerUp(){ timerMs = 0; timerRunning = true; tickTimerUp(); }
+function tickTimerUp(){
+  if (!timerRunning) return;
+  timerMs += 500;
+  const m = Math.floor(timerMs/60000);
+  const s = Math.floor((timerMs%60000)/1000);
+  const display = (m<10?'0':'')+m+':' + (s<10?'0':'')+s;
+  const el = document.getElementById('timerDisplay');
+  if (el) el.textContent = display;
+  timerTickHandle = setTimeout(tickTimerUp, 500);
 }
 
 // ---------- Practice Flow ----------
@@ -185,16 +198,21 @@ function renderPractice() {
   document.getElementById('nextBtn').addEventListener('click', next);
   document.getElementById('saveBtn').addEventListener('click', saveStepLog);
   document.getElementById('endBtn').addEventListener('click', openSaveDialog);
+  document.getElementById('openRandomizer').addEventListener('click', openRandomizerModal);
 
-  // Timer controls
+  // Timer controls (mode-aware)
   document.getElementById('timerToggle').addEventListener('click', () => {
     timerRunning = !timerRunning;
-    if (timerRunning) { timerEnd = Date.now() + (timerEnd - Date.now()); tickTimer(); }
+    if (timerRunning) {
+      if ((activeSession.timerMode||'down') === 'down') { timerEnd = Date.now() + (timerEnd - Date.now()); tickTimerDown(); }
+      else { tickTimerUp(); }
+    }
     document.getElementById('timerToggle').textContent = timerRunning ? 'Pause' : 'Resume';
   });
   document.getElementById('timerAdd').addEventListener('click', () => {
-    timerEnd += 60*1000;
-    if (!timerRunning) { timerRunning = true; tickTimer(); document.getElementById('timerToggle').textContent = 'Pause'; }
+    if ((activeSession.timerMode||'down') === 'down') { timerEnd += 60*1000; }
+    else { timerMs += 60*1000; }
+    if (!timerRunning) { timerRunning = true; ((activeSession.timerMode||'down') === 'down' ? tickTimerDown() : tickTimerUp()); document.getElementById('timerToggle').textContent = 'Pause'; }
   });
 
   // Scroll handler
@@ -236,6 +254,7 @@ function createCard(step, index, allowLogging) {
     if (schemas.length) formHtml = renderForm(schemas, index);
   }
 
+  const randBlock = (step.title||'').toLowerCase().includes('random') ? `<div class="section"><h3>Randomizer (quick)</h3><div class="actions-row"><button class="pill" data-rand="gen">Generate</button><button class="pill ghost" data-rand="copy">Copy</button></div><pre class="kicker" id="randInline_${index}" style="white-space: pre-wrap;"></pre></div>` : '';
   card.innerHTML = `
     <div class="headerline">
       <div class="kicker">${activeSession.location}</div>
@@ -245,12 +264,22 @@ function createCard(step, index, allowLogging) {
     <div class="content">
       <div class="section tip"><h3>Quick Tips</h3><ul>${quicks.join('') || '<li>Focus on the key feel.</li>'}</ul></div>
       <ul>${itemsHtml}</ul>
+      ${randBlock}
       <div class="section insight"><h3>Pro Insights</h3><ul>${insights.join('') || '<li>Contact, start line, commitment.</li>'}</ul></div>
       ${simSettings.length ? `<div class="section sim"><h3>Simulator Settings</h3><ul>${simSettings.join('')}</ul></div>` : ''}
       ${lookFor.length ? `<div class="section sim"><h3>What to Track</h3><ul>${lookFor.join('')}</ul></div>` : ''}
       ${formHtml}
     </div>
   `;
+  if ((step.title||'').toLowerCase().includes('random')) {
+    const pre = card.querySelector(`#randInline_${index}`);
+    const genBtn = card.querySelector('[data-rand="gen"]');
+    const copyBtn = card.querySelector('[data-rand="copy"]');
+    const arr = generateRealisticDistances(12, 85, 195, 'balanced');
+    pre.textContent = arr.join(', ');
+    genBtn.addEventListener('click', ()=>{ const a = generateRealisticDistances(12, 85, 195, 'balanced'); pre.textContent = a.join(', '); });
+    copyBtn.addEventListener('click', ()=>{ navigator.clipboard.writeText(pre.textContent||''); });
+  }
   return card;
 }
 
@@ -463,5 +492,69 @@ async function renderTrends() {
   metricLoc.addEventListener('change', draw);
   draw();
 }
+
+
+// ---------- Randomizer ----------
+function openRandomizerModal() {
+  const tmpl = document.getElementById('randomizerTmpl');
+  const node = tmpl.content.cloneNode(true);
+  const view = document.getElementById('view');
+  // Simple overlay like other dialogs
+  const wrap = document.createElement('div'); wrap.className = 'dialog'; wrap.appendChild(node);
+  document.body.appendChild(wrap);
+  const out = wrap.querySelector('#randOut');
+  function generate() {
+    const count = parseInt(wrap.querySelector('#randCount').value || '12', 10);
+    const min = parseInt(wrap.querySelector('#randMin').value || '85', 10);
+    const max = parseInt(wrap.querySelector('#randMax').value || '195', 10);
+    const profile = wrap.querySelector('#randProfile').value || 'balanced';
+    const arr = generateRealisticDistances(count, min, max, profile);
+    out.textContent = arr.join(', ');
+  }
+  wrap.querySelector('#randGen').addEventListener('click', generate);
+  wrap.querySelector('#randCopy').addEventListener('click', () => {
+    navigator.clipboard.writeText(out.textContent || '');
+  });
+  wrap.addEventListener('click', (e)=>{ if(e.target===wrap) document.body.removeChild(wrap); });
+  generate();
+}
+
+function generateRealisticDistances(count, min, max, profile='balanced') {
+  const res = [];
+  for (let i=0;i<count;i++) {
+    let x = Math.random();
+    // bias curves via piecewise
+    let val = 0;
+    if (profile === 'approach') {
+      // Heavier in 120–170 (bell around 145)
+      const mu = 0.6, sigma = 0.18; // map to 0..1 then scale
+      const g = clamp(randn_bm(mu, sigma), 0, 1);
+      val = mapRange(g, 0,1, Math.max(min, 110), Math.min(max, 185));
+    } else if (profile === 'wedges') {
+      const mu = 0.3, sigma = 0.18;
+      const g = clamp(randn_bm(mu, sigma), 0, 1);
+      val = mapRange(g, 0,1, Math.max(min, 70), Math.min(max, 125));
+    } else { // balanced
+      const g = Math.random();
+      val = mapRange(g, 0,1, min, max);
+    }
+    // Round to realistic yardages: nearest 5
+    const rounded = Math.round(val/5)*5;
+    res.push(rounded);
+  }
+  return res;
+}
+function mapRange(v, a,b, c,d){ return c + (v-a)*(d-c)/(b-a || 1); }
+function clamp(v, lo, hi){ return Math.max(lo, Math.min(hi, v)); }
+// Gaussian-ish
+function randn_bm(mu=0.5, sigma=0.15){
+  let u=0, v=0;
+  while(u===0) u = Math.random();
+  while(v===0) v = Math.random();
+  const num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+  const z = mu + sigma * num;
+  return z;
+}
+
 
 document.addEventListener('DOMContentLoaded', loadData);
