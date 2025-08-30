@@ -16,21 +16,121 @@
     </div>
   </header>
 
-  <nav class="tabs" id="tabs"></nav>
+  <nav class="topnav">
+    <button data-route="#home" class="navlink active">Home</button>
+    <button data-route="#practice" class="navlink">Practice</button>
+    <button data-route="#history" class="navlink">History</button>
+    <button data-route="#trends" class="navlink">Trends</button>
+  </nav>
 
-  <main class="stage">
-    <div class="carousel" id="carousel" aria-live="polite"></div>
-  </main>
+  <main id="view"></main>
 
-  <footer class="footer">
-    <button id="prevBtn" class="pill">◀ Prev</button>
-    <div id="stepIndicator" class="indicator">1/5</div>
-    <button id="startBtn" class="pill ghost">Start</button>
-    <button id="saveBtn" class="pill ghost">Save</button>
-    <button id="exportBtn" class="pill ghost">Export</button>
-    <button id="nextBtn" class="pill">Next ▶</button>
-  </footer>
+  <template id="homeTmpl">
+    <section class="home">
+      <h1>Plan a Session</h1>
+      <div class="card plan">
+        <div class="field">
+          <label>Location</label>
+          <select id="locSelect"></select>
+        </div>
+        <div class="field">
+          <label>Routine</label>
+          <select id="routineSelect"></select>
+        </div>
+        <div class="field">
+          <label>Notes (optional)</label>
+          <textarea id="planNotes" placeholder="Goals, focus, course vibes…"></textarea>
+        </div>
 
+        <div id="simAttach" class="sim-only hidden">
+          <div class="section sim">
+            <h3>Simulator Attachments</h3>
+            <div class="field">
+              <label>Links (comma-separated)</label>
+              <input type="text" id="simLinks" placeholder="https://..., https://...">
+            </div>
+            <div class="field">
+              <label>Screenshots / PDFs</label>
+              <input type="file" id="simFiles" accept="image/*,application/pdf" multiple>
+              <small>Stored locally via IndexedDB. For many large files, prefer cloud links.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions-row">
+          <button id="startSessionBtn" class="pill">Start Session ▶</button>
+        </div>
+      </div>
+
+      <div class="card tips">
+        <h2>How this works</h2>
+        <ul>
+          <li>Select a location and routine, then hit Start.</li>
+          <li>Swipe through the steps (cards). Logging is on for Range/Short Game/Putting/Bunker, and off in Simulator.</li>
+          <li>When finished, tap End Session to save it locally.</li>
+        </ul>
+      </div>
+
+      <div class="actions-row">
+        <button id="exportBtn" class="pill ghost">Export JSON</button>
+        <label class="importer pill ghost">Import JSON<input type="file" id="importInput" accept="application/json"></label>
+      </div>
+    </section>
+  </template>
+
+  <template id="practiceTmpl">
+    <section class="practice">
+      <div class="headerline">
+        <div class="kicker" id="practiceMeta"></div>
+        <div class="kicker"><span id="stepIndicator">1/5</span></div>
+      </div>
+
+      <nav class="tabs" id="tabs"></nav>
+
+      <div class="stage">
+        <div class="carousel" id="carousel" aria-live="polite"></div>
+      </div>
+
+      <footer class="footer">
+        <button id="prevBtn" class="pill">◀ Prev</button>
+        <button id="saveBtn" class="pill ghost">Save Step</button>
+        <button id="endBtn" class="pill ghost">End Session</button>
+        <button id="nextBtn" class="pill">Next ▶</button>
+      </footer>
+    </section>
+  </template>
+
+  <template id="historyTmpl">
+    <section class="history">
+      <h1>Past Sessions</h1>
+      <div class="filters">
+        <select id="filterLoc"><option value="">All Locations</option></select>
+        <input id="filterText" placeholder="Search notes / routine">
+      </div>
+      <div id="historyList" class="list"></div>
+    </section>
+  </template>
+
+  <template id="trendsTmpl">
+    <section class="trends">
+      <h1>Trends</h1>
+      <div class="filters">
+        <select id="metricSelect"><option value="">Select a metric…</option></select>
+        <select id="metricLoc"><option value="">Any Location</option></select>
+      </div>
+      <canvas id="trendChart" height="260"></canvas>
+      <div id="trendNote" class="kicker"></div>
+    </section>
+  </template>
+
+  <script src="idb.js"></script>
   <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js');
+      });
+    }
+  </script>
 </body>
 </html>

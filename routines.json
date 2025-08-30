@@ -1,36 +1,47 @@
 {
   "Simulator": [
     {
-      "title": "Warm-Up - 0\u201310 min",
+      "title": "Warm-Up \u2014 0\u20138 min",
       "items": [
         {
           "label": "Tempo only. Balance through finish; aim center target.",
-          "quickTip": "PW \u2192 7i \u2192 Driver, 6 balls each. Smooth tempo, 70% speed.",
-          "insight": "Keep grip pressure light (4/10) and finish in balance. Think 'brush the grass' with irons and 'wide then quick' with driver \u2014 this builds speed without getting quick from the top.",
+          "quickTip": "PW \u2192 7i \u2192 Driver, 5 balls each at ~70% speed.",
+          "insight": "Light grip (4/10). Finish in balance. 'Brush the grass' with irons; 'wide then quick' with driver.",
           "perClub": [
             {
               "club": "PW",
-              "balls": 6
+              "balls": 5
             },
             {
               "club": "7i",
-              "balls": 6
+              "balls": 5
             },
             {
               "club": "Driver",
-              "balls": 6
+              "balls": 5
             }
+          ],
+          "simSettings": [
+            "Environment: Wind OFF; Altitude = local or sea level",
+            "Ball model/type: match your real ball (Premium if available)",
+            "Normalization: ON (standardized carry/side/total)",
+            "Range ball mode OFF (unless you truly use range balls)"
+          ],
+          "lookFor": [
+            "Centered contact and start-line control",
+            "Tempo consistency (no max swings)",
+            "Baseline carry numbers for PW, 7i, Driver"
           ]
         }
       ]
     },
     {
-      "title": "Wedges - 10\u201325 min",
+      "title": "Wedges \u2014 8\u201320 min",
       "items": [
         {
-          "label": "Full swings only. Capture carry/launch/spin in app.",
-          "quickTip": "Aim at a small target; swing the same tempo every shot.",
-          "insight": "For flighted wedges, narrow stance, slight handle forward, and keep launch under ~30\u00b0. Picture a 'low window' 4\u20135 ft high ~7 ft ahead. Prioritize consistent carry \u2014 not total.",
+          "label": "Full swings only. One club at a time to keep groupings clean.",
+          "quickTip": "Pick one target; hit all balls with the *same* wedge before switching.",
+          "insight": "Narrow stance, slight handle forward; prioritize consistent CARRY. Keep launch under ~30\u00b0 for flighted shots.",
           "perClub": [
             {
               "club": "PW (46\u00b0)",
@@ -41,65 +52,97 @@
               "balls": 8
             },
             {
-              "club": "56\u00b0",
-              "balls": 8
-            },
-            {
-              "club": "60\u00b0",
+              "club": "56\u00b0 or 60\u00b0",
               "balls": 8
             }
+          ],
+          "simSettings": [
+            "Display: Table view with Carry, Launch, Spin, Peak Height",
+            "Dispersion circles ON; same target each club"
+          ],
+          "lookFor": [
+            "Carry average and standard deviation per wedge",
+            "Spin consistency (avoid huge outliers)",
+            "Peak height trend by loft"
           ]
         }
       ]
     },
     {
-      "title": "Mid/Long Irons - 25\u201340 min",
+      "title": "Mid / Long Irons \u2014 20\u201332 min",
       "items": [
         {
-          "label": "Green\u2011holding check. Compare 5i vs 4i: peak & descent.",
-          "quickTip": "Same target. Alternate 2\u00d75i / 2\u00d74i to compare.",
-          "insight": "A playable long iron holds greens when peak height is adequate and descent angle is steep enough. If 4i lands shallow or dispersion balloons, treat it as a layup club.",
+          "label": "Do *not* alternate clubs. Hit 8\u00d75i, then 8\u00d74i (two clean groups).",
+          "quickTip": "Set Compare/Dispersion view; finish 5i block, then switch to 4i.",
+          "insight": "Evaluate playability via peak height + descent angle + dispersion. If 4i won\u2019t hold, treat as a layup tool.",
           "perClub": [
             {
-              "club": "5i",
+              "club": "5i (block)",
               "balls": 8
             },
             {
-              "club": "4i",
+              "club": "4i (block)",
               "balls": 8
             }
+          ],
+          "simSettings": [
+            "Display: add Descent Angle & Peak Height columns",
+            "Green-sized target; dispersion ON; Compare Clubs ready"
+          ],
+          "lookFor": [
+            "Descent angle & peak height sufficient to hold greens",
+            "Carry std dev (tightness) for each iron block",
+            "Left/Right bias pattern"
           ]
         }
       ]
     },
     {
-      "title": "Driver vs 4W - 40\u201355 min",
+      "title": "Tee Club Benchmark \u2014 32\u201350 min",
       "items": [
         {
-          "label": "Alternate stock swings. Favor dispersion over max.",
-          "quickTip": "D\u20114W\u2011D\u20114W in pairs. Fairway\u2011finder only.",
-          "insight": "Compare carry, side dispersion, and spin. If 4W is tighter with comparable distance to a conservative driver, ride it \u2014 it's often easier to launch and control off the deck and tee.",
+          "label": "No alternating. Finish one full block, then switch (two groups total).",
+          "quickTip": "Block 1: Driver \u00d710. Block 2: 4W \u00d710 (or reverse).",
+          "insight": "Compare carry, spin, and fairway-width dispersion. If 4W is tighter with near\u2011driver carry, it\u2019s your gamer on tight holes.",
           "perClub": [
             {
-              "club": "Driver",
-              "balls": 8
+              "club": "Driver (block)",
+              "balls": 10
             },
             {
-              "club": "4W",
-              "balls": 8
+              "club": "4W (block)",
+              "balls": 10
             }
+          ],
+          "simSettings": [
+            "View: Compare Clubs; Dispersion map ON",
+            "Normalization ON; Side/Offline shown"
+          ],
+          "lookFor": [
+            "Fairway-width dispersion by club (single clear group each)",
+            "Spin window stability (avoid knuckle/balloon extremes)",
+            "First\u2011ball performance within each block"
           ]
         }
       ]
     },
     {
-      "title": "Pressure Test - 55\u201360 min",
+      "title": "Pressure Test \u2014 50\u201355 min",
       "items": [
         {
           "label": "Targets: 95, 150, 185, 230 \u2014 one ball each. No redos.",
-          "quickTip": "One swing per target; commit to your number.",
-          "insight": "Treat this like the course: routine \u2192 commit \u2192 accept. Log the first\u2011try outcomes only to train decision confidence.",
-          "balls": 4
+          "quickTip": "Routine \u2192 commit \u2192 accept the result.",
+          "insight": "Mini Combine under time pressure. First\u2011try outcomes only.",
+          "balls": 4,
+          "simSettings": [
+            "Use: Skills/Combine/Target mode (if available)",
+            "Scoring ON; same conditions (wind OFF, normalization ON)"
+          ],
+          "lookFor": [
+            "Hit/miss vs. target yardage",
+            "Face\u2011to\u2011path pattern under pressure",
+            "Club choice confidence"
+          ]
         }
       ]
     }

@@ -1,18 +1,26 @@
-# Practice Playbook v3 (GitHub Pages)
+# Practice Playbook v8 — PWA + IndexedDB
 
-**What's new**
-- Each card now has **Quick Tips** *and* **Pro Insights** (fills space, clearer guidance).
-- Smooth, native **swipe** using CSS **Scroll Snap**; indicator stays in sync.
-- Buttons: Prev / Next / Start / Save / Export wired and reliable.
-- **Putting** tab included. **Simulator** has **no logging UI**.
-- Cleaner visual design (accent sections, denser layout).
+**What’s new**
+- ✅ Full **PWA**: install to home screen, offline-capable (service worker cache).
+- ✅ **IndexedDB** persistence for sessions & logs (more durable than localStorage).
+- ✅ **One‑time migration**: your old localStorage data is copied into IndexedDB automatically.
+- ✅ Keeps v7 Simulator tweaks (≈55 min, no alternating) and all v6 features (planner, attachments, history, trends).
 
-**Deploy**
-1) Create a repo (e.g., `practice-playbook-v3`)
-2) Upload all files to repo root
-3) GitHub → Settings → Pages → Deploy from a branch → `main` / root
-4) Open `https://<your-user>.github.io/practice-playbook-v3/`
+## Deploy (GitHub Pages)
+1) Create a repo (e.g., `practice-playbook-v8`)  
+2) Upload all files to the repo **root**  
+3) GitHub → **Settings → Pages → Deploy from a branch** → `main` / root  
+4) Open your site. You’ll be prompted to install (or use browser Add to Home Screen).
 
-**Customize**
-- Edit `routines.json` to change texts, add Quick Tips/Pro Insights (`quickTip`, `insight`), and ball counts.
-- Add/remove log fields via `logSchema` on steps in non‑Simulator categories.
+## Use on Android (Pixel)
+- Open the site in Chrome → ⋮ menu → **Add to Home screen**.  
+- Launch from the icon for a fullscreen experience. The app works offline after first load.
+
+## Data
+- Sessions and logs are stored in **IndexedDB** under `practice_playbook_db`.  
+- **Export / Import** is available from Home.  
+- Large simulator screenshots are stored as Data URLs; for many/big files, prefer cloud links.
+
+## Notes
+- Caching uses **cache‑first** for static assets and **network‑first** for `routines.json` so you can update routines without a full redeploy.
+- If you ever change filenames, bump `CACHE_NAME` in `service-worker.js` to invalidate old caches.
